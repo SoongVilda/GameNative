@@ -1,47 +1,72 @@
-# GameNative
+<div align="center">
+  <img src="app/src/main/ic_launcher-playstore.png" width="128" alt="GameNative Logo" />
+  <h1>GameNative</h1>
+  <p><strong>Play your PC games from Steam, Epic, and GOG directly on your Android device with seamless cloud saves.</strong></p>
+</div>
 
+**GameNative** is a game launcher and compatibility layer for Android that provides access to PC game libraries from Steam, Epic Games, and GOG. The application integrates Winlator as an emulation backend to execute Windows binaries natively on ARM architectures.
 
-GameNative allows you to play games you own on Steam, Epic and GOG directly on Android devices, with cloud saves.
+*(Note: This project is a fork of [Pluvia](https://github.com/oxters168/Pluvia), originally a Steam client for Android, and has been expanded to support Epic Games and GOG.)*
+
+<div align="center">
 
 [Playing Stray on Poco F6](https://github.com/user-attachments/assets/1870fd14-7de9-4054-ba92-d3a5c73686b5)
 
-This is a fork of [Pluvia](https://github.com/oxters168/Pluvia), a Steam client for Android.
+</div>
 
-## How to Use
+---
 
-(Note that GameNative is still in its early stages, and all games may not work, or may require tweaking to get working well)
-1. Download the latest release [here](https://downloads.gamenative.app/releases/0.8.0/gamenative-v0.8.0-hotfix.apk)
-2. Install the APK on your Android device
-3. Login to your Steam account
-4. Install your game
-5. Hit play and enjoy!
+## Capabilities
 
-## Support
-To report issues or receive support, join the [Discord server](https://discord.gg/2hKv4VfZfE)
+- **Store Integration**: Built-in authentication and library management for Steam, Epic Games, and GOG storefronts.
+- **Cloud Saves**: Automatic synchronization of remote save data across linked platforms.
+- **Native UI**: Application frontend is developed utilizing native Android UI toolkits (`Jetpack Compose`).
+- **Emulation Backend**: Relies on a bundled Winlator runtime environment utilizing established compatibility layers:
+  - **Proton**: A tool for use with the Steam client, which allows games exclusive to Windows to run on the Linux operating system. *It relies on **Wine** a compatibility layer that translates Windows API calls into POSIX calls on-the-fly, eliminating the performance and memory penalties of traditional virtual machines to facilitate this.*
+  - **FEX-emu**: An advanced binary recompiler that allows you to run x86/x64 applications on ARM64 Linux devices. It offers broad compatibility and generates optimized code via a custom IR, minimizing in-game stuttering. 
+  - **Box64**: Enables running x86_64 Linux programs (including games) on non-x86_64 Linux systems (like ARM64). It leverages native system libraries (libc, libm, SDL, OpenGL) and features a DynaRec for a 5-10x speed boost.
+  - **DXVK**: Provides a Vulkan-based translation layer for D3D8, D3D9, D3D10 and D3D11.
+  - **VKD3D**: Specifically *vkd3d-proton*, a fork of VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan.
 
-Do not create issues on GitHub as they will be automatically closed!
+## Quick Start
 
-You can support GameNative on Ko-fi at https://ko-fi.com/gamenative
+> **Note:** GameNative is in early development. Compatibility is not guaranteed for all titles and extensive configuration may be necessary for stable execution.
 
-## Building
-### IF YOU JUST WANT TO USE THE APP, PLEASE SEE THE HOW TO USE SECTION ABOVE. THIS IS ONLY NEEDED IF YOU WANT TO CONTRIBUTE FOR DEVELOPMENT.
-1. I use a normal build in Android studio. Hit me up if you can't figure out how to build.
-2. **SteamGridDB API Key (Optional):** To enable automatic fetching of game images for Custom Games, add your SteamGridDB API key to `local.properties`:
-   ```
+### Prerequisites
+- An Android device running Android 8.0 (API Level 26) or newer.
+- Games legally purchased on a supported digital storefront.
+
+### Installation
+1. Download the latest release APK from the [Downloads Page](https://github.com/utkarshdalal/GameNative/releases).
+2. Install the APK on your device. Ensure that installation from unknown sources is permitted in your security settings.
+
+### Basic Usage
+1. Launch the application.
+2. Authenticate with a supported digital storefront (Steam, Epic Games, or GOG).
+3. Download and install a title from your library.
+4. Launch the executable from the interface.
+
+---
+
+## Community and Support
+
+- **Discord**: For troubleshooting and compatibility reports, join the [Discord server](https://discord.gg/2hKv4VfZfE).
+- **Donations**: Project development can be supported via [Ko-fi](https://ko-fi.com/gamenative).
+
+> **Important:** GitHub Issues are reserved exclusively for codebase development tracking. End-user support requests submitted via GitHub Issues will be closed automatically.
+
+## Building from Source
+
+1. Clone the repository and import the project into **Android Studio**. The application builds via a standard Gradle execution sequence.
+2. **SteamGridDB API Key (Optional):** To enable automatic asset fetching via the SteamGridDB API for custom games, append your token to `local.properties`:
+   ```properties
    STEAMGRIDDB_API_KEY=your_api_key_here
    ```
-   Get your API key from: https://www.steamgriddb.com/profile/preferences
-   If the API key is not configured, the app will log a message but continue to work normally without fetching images.
-
-## Community
-
-Join our [Discord server](https://discord.gg/2hKv4VfZfE) for support and updates.
+   *If a valid token is not supplied, the application will compile normally but will fallback to default placeholder assets.*
 
 ## License
-[GPL 3.0](https://github.com/utkarshdalal/GameNative/blob/master/LICENSE)
 
-## Privacy Policy
-[Privacy Policy](https://github.com/utkarshdalal/GameNative/blob/master/PrivacyPolicy/README.md)
+- **License:** [GPL 3.0](https://github.com/utkarshdalal/GameNative/blob/master/LICENSE)
+- **Privacy Policy:** [Read our Privacy Policy](https://github.com/utkarshdalal/GameNative/blob/master/PrivacyPolicy/README.md)
 
-**Disclaimer: This software is intended for playing games that you legally own. Do not use this software for piracy or any other illegal purposes. The maintainer of this fork assumes no
-responsibility for misuse.**
+> **Disclaimer:** This software is intended strictly for playing games that you **legally own**. Do not use this software for piracy or any other illegal purposes. The maintainer of this fork assumes no responsibility for misuse.
